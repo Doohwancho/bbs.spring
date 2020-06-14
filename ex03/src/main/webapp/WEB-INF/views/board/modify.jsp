@@ -84,6 +84,7 @@
 					<button type="submit" data-oper='remove' class="btn btn-primary">Remove</button>
 					<button type="submit" data-oper='list' class="btn btn-primary">List</button>
 					
+					<!-- type='hidden' -->
 					<input type='hidden' name='bno' value='<c:out value="${board.bno }"/>'>
 					<input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum }"/>'>
 					<input type='hidden' name='amount' value='<c:out value="${cri.amount }"/>'>

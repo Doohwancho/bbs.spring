@@ -86,9 +86,14 @@ public class BoardController {
 	@PostMapping("/modify")
 	public String modify(BoardVO board, Criteria cri, RedirectAttributes rttr) {
 		log.info("modify: "+board);
+		log.info("cri: "+cri);
+		log.info("##################");
+		
 		if(service.modify(board)) {
+			log.info("service.modify(board) inside");
 			rttr.addFlashAttribute("result", "success");
 		}
+		log.info("service.modify(board) ended");
 		log.info(cri.getListLink());
 		log.info("&&&&&&&&&&&&&&&&&&&&&&&&&&");
 //		rttr.addAttribute("pageNum", cri.getPageNum());

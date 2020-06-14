@@ -33,6 +33,7 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public boolean modify(BoardVO board) {
 		log.info("update.....");
+		log.info("왔다새꺄");
 		return mapper.update(board) == 1;
 	}
 	@Override
