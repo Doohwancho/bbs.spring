@@ -21,9 +21,69 @@
 
 <title>Hello, Autochess!</title>
 
+<style>
+	.uploadResult{
+		width:100%;
+		background-color:gray;
+	}
+	
+	.uploadResult ul{
+		display:flex;
+		flex-flow: row;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.uploadResult ul li{
+		list-style: none;
+		padding: 10px;
+		align-content: center;
+		text-align: center;
+	}
+	
+	.uploadResult ul li img{
+		width: 100px;
+	}
+	
+	.uploadResult ul li span{
+		color: white;
+	}
+	
+	.bigPictureWrapper{
+		position: absolute;
+		display: none;
+		justify-content: center;
+		align-items: center;
+		top:0%;
+		width:100%;
+		height:100%;
+		background-color:gray;
+		z-index:100;
+		background:rgba(255,255,255,0,5);
+	}
+	
+	.bigPicture{
+		position: relative;
+		display:flex;
+		justify-content: center;
+		align-items:center;
+	}
+	
+	.bigPicture img{
+		width:600px;
+	}
+</style>
+
 </head>
 
 <body>
+   	<!-- thumbnail picture -->
+   	<div class='bigPictureWrapper'>
+   		<div class='bigPicture'>
+   			
+   		</div>
+   	</div>
+   	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="#">Autochess</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -94,6 +154,21 @@
 			
 		</div> <!-- end of hidden info regarding post -->
 		
+		<div class="card w-75 border-secondary mb-3" style="width: 18rem;"> 
+		  <div class="card-header"> 
+		    	Files
+		  </div> 
+		  
+		  <ul class="list-group list-group-flush" id = "uploadFiles">
+		    <li class="list-group-item">
+		    	<div class='uploadResult'>
+		    		<ul>
+		    		
+		    		</ul>
+		    	</div>
+		    </li>
+		  </ul>
+		</div>
 		  
 		<div class="card w-75 border-secondary mb-3" style="width: 18rem;"> 
 		  <div class="card-header"> 
@@ -510,7 +585,79 @@
 				
 				showList(pageNum);
 			});
+			
+			
+			//첨부파일과 이미지 자동으로 가져오기
+			 
+			/*
+			(function(){ 
+				var bno = '<c:out value="${board.bno}"/>';
+				$.getJSON("/board/getAttachList", {bno:bno}, function(arr){
+					console.log(arr);
+				});//end getJson
+			})();
+			*/
+			
+			var bno = '<c:out value="${board.bno}"/>';
+			$.getJSON("/board/getAttachList", {bno:bno}, function(arr){
+				console.log(arr);
+				console.log("hello?");
+				var str="";
+				
+				$(arr).each(function(i, attach){
+					//image type
+					if(attach.fileType){
+						var fileCallPath = encodeURIComponent( attach.uploadPath+ "/s_" + attach.uuid+"_"+attach.fileName);
+						str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"'><div>";
+						str += "<img src='/display?fileName="+fileCallPath+"'>";
+						str += "</div>";
+						str += "</li>";
+					} else {
+						str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"'><div>";
+						str += "<span> "+attach.fileName+"</span><br/>";
+						str += "<img src='/resources/img/attach.png'>";
+						str += "</div>";
+						str += "</li>";
+					}
+				});
+				$(".uploadResult ul").html(str);
+				
+			});
+			
+			//첨부파일 이미지 클릭시 다운로드 처리
+			$(".uploadResult").on("click","li", function(e){
+				console.log("view image");
+					
+				var liObj = $(this);
+				
+				var path = encodeURIComponent(liObj.data("path") + "/" + liObj.data("uuid")+"_"+liObj.data("filename"));
+				
+				if(liObj.data("type")){
+					showImage(path.replace(new RegExp(/\\/g),"/"));
+				} else {
+					//download
+					self.location = "/download?fileName="+path;
+				}
+			}); 
+			
+			function showImage(fileCallPath){
+				alert(fileCallPath);
+				
+				$(".bigPictureWrapper").css("display", "flex").show();
+				
+				$(".bigPicture").html("<img src='/display?fileName="+fileCallPath+"'>")
+				.animate({width:'100%', height: '100%'}, 1000); 
+			}
+			
+			//원본 이미지 창 닫기
+			$(".bigPictureWrapper").on("click", function(e){
+				$(".bigPicture").animate({width:'0%', height:'0%'}, 1000);
+				setTimeout(function(){
+					$('.bigPictureWrapper').hide();
+				}, 1000); 
+			});
 		});
+		
 	</script>
 	 
 </body>
