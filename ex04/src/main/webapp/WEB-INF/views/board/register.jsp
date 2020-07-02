@@ -207,6 +207,7 @@
 			}
 			//"button[type='submit']"
 			$("input[type='file']").change(function(e){
+				
 				var formData = new FormData();
 				var inputFile = $("input[name='uploadFile']");
 				var files = inputFile[0].files;
@@ -217,6 +218,7 @@
 					} 
 					formData.append("uploadFile", files[i]);
 				}
+				
 				
 				//주의! - processData: false, contentType: false 안하면 전송이 안된다!! 
 				$.ajax({
