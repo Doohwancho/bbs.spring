@@ -16,6 +16,19 @@
 		<org.slf4j-version>1.7.25</org.slf4j-version>
 	</properties>
 	<dependencies>
+		<!-- Quartz to set schedule for removing unnecessary uploadedFiles from yesterday -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz-jobs</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+	
 		<!-- 파일업로드 - 섬네일 처리 -->
 		<dependency>
 			<groupId>net.coobird</groupId>
