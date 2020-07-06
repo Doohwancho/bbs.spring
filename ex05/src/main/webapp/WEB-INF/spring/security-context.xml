@@ -14,8 +14,8 @@
 	<!-- 3. 스프링 시작지점(security:http)와 스프링 시큐리티 동작에 필요한 Authentication Manager 등록 -->
 	
 	
-	
-	<security:http>
+	<!-- 7. 접근제한 메시지 custom (AccessDeniedHandler 직접 구현) -->
+	<security:http auto-config="true" use-expressions="true">
 	
 		<!-- 4. 접근제한 설정 -->
 		<security:intercept-url pattern="/sample/all" access="permitAll" />
@@ -26,6 +26,9 @@
 		<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')" />
 	
 		<security:form-login />
+		
+		<!-- 7. 접근제한 메시지 custom (AccessDeniedHandler 직접 구현. CommonController에 @GetMapping("/accessError")-->
+		<security:access-denied-handler error-page="/accessError"/>
 		
 	</security:http>
 	
