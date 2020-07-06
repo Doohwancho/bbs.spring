@@ -22,8 +22,8 @@ import org.zerock.domain.Ticket;
 import lombok.extern.log4j.Log4j;
 
 
-//RequestMapping에서 포스트도 받는다고 명시하는게 좋음.
-@RestController //@Controller + @ResponseBody = 메서드의 반환결과(문자열)을 json형태로 반환
+//RequestMapping�뿉�꽌 �룷�뒪�듃�룄 諛쏅뒗�떎怨� 紐낆떆�븯�뒗寃� 醫뗭쓬.
+@RestController //@Controller + @ResponseBody = 硫붿꽌�뱶�쓽 諛섑솚寃곌낵(臾몄옄�뿴)�쓣 json�삎�깭濡� 諛섑솚
 @RequestMapping(value = "/sample", method= {RequestMethod.GET, RequestMethod.POST})
 @Log4j 
 public class SampleController {
@@ -31,7 +31,7 @@ public class SampleController {
 	@GetMapping(value= "/getText", produces = "text/plain; charset=UTF-8")
 	public String getText() {
 		log.info("MIME TYPE: "+ MediaType.TEXT_PLAIN_VALUE);
-		return "안녕하세요";
+		return "�븞�뀞�븯�꽭�슂";
 	}
 	
 	/*
@@ -40,15 +40,15 @@ public class SampleController {
 	 * client - request -> server(spring-controller's GetMapping/RequestMapping, tomcat)
 	 * server(spring-controller, tomcat) - response -> client
 	 * 
-	 * MediaType.APPLICATION_JSON_UTF8_VALUE라면, 핸들러가 요청과 응답을 보낼 때, 특정타입으로만 응답하게 만들기 가능.
+	 * MediaType.APPLICATION_JSON_UTF8_VALUE�씪硫�, �빖�뱾�윭媛� �슂泥�怨� �쓳�떟�쓣 蹂대궪 �븣, �듅�젙���엯�쑝濡쒕쭔 �쓳�떟�븯寃� 留뚮뱾湲� 媛��뒫.
 	 * 
-	 * request에는 consumes, response에는 produces를 통해 가능.
+	 * request�뿉�뒗 consumes, response�뿉�뒗 produces瑜� �넻�빐 媛��뒫.
 	 * 
-	 * 만약 consumes = MediaType.APPLICATION_JSON_UTF8_VALUE 라면, 
+	 * 留뚯빟 consumes = MediaType.APPLICATION_JSON_UTF8_VALUE �씪硫�, 
 	 * 
-	 * json 데이터만 담고있는애만 처리하겠다는 뜻.
+	 * json �뜲�씠�꽣留� �떞怨좎엳�뒗�븷留� 泥섎━�븯寃좊떎�뒗 �쑜.
 	 * 
-	 * produces속성은 생략가능.
+	 * produces�냽�꽦�� �깮�왂媛��뒫.
 	 */
 	
 	@GetMapping(value= "/getSample", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, 
@@ -62,17 +62,17 @@ public class SampleController {
 		
 		<SampleVO>
 			<mno>112</mno>
-			<firstName>스타</firstName>
-			<lastName>로드</lastName>
+			<firstName>�뒪��</firstName>
+			<lastName>濡쒕뱶</lastName>
 		</SampleVO>
 		
 		2. 1. localhost:5551/sample/getSample.json
-		{"mno":112,"firstName":"스타","lastName":"로드"}
+		{"mno":112,"firstName":"�뒪��","lastName":"濡쒕뱶"}
 	 */
 	
 	@GetMapping(value="/getSample2")
 	public SampleVO getSample2() {
-		return new SampleVO(113, "로켓","라쿤");
+		return new SampleVO(113, "濡쒖폆","�씪荑�");
 	}
 	
 	@GetMapping(value="/getList")
@@ -83,11 +83,11 @@ public class SampleController {
 	@GetMapping(value="/getMap")
 	public Map<String, SampleVO> getMap(){
 		Map<String, SampleVO> map = new HashMap<>();
-		map.put("First", new SampleVO(111, "그루트","주니어"));
+		map.put("First", new SampleVO(111, "洹몃（�듃","二쇰땲�뼱"));
 		return map;
 	}
 	
-	//ResponseEntity type은 정상적인 데이터인지, 비정상적인 데이터인지 확인함.
+	//ResponseEntity type�� �젙�긽�쟻�씤 �뜲�씠�꽣�씤吏�, 鍮꾩젙�긽�쟻�씤 �뜲�씠�꽣�씤吏� �솗�씤�븿.
 	//http://localhost:5551/sample/check?height=140&weight=60 
 	//502 error
 	@GetMapping(value="/check", params= {"height", "weight"})
@@ -105,18 +105,36 @@ public class SampleController {
 	}
 	
 	
-	//@PathVariable - url에 최대한 많은 정보를 담고 싶을때 사용하는 것
+	//@PathVariable - url�뿉 理쒕��븳 留롮� �젙蹂대�� �떞怨� �떢�쓣�븣 �궗�슜�븯�뒗 寃�
 	//http://localhost:5551/sample/product/hello/204
 	@GetMapping("/product/{cat}/{pid}") 
 	public String[] getPath(@PathVariable String cat, @PathVariable Integer pid) {
 		return new String[] {"category: "+ cat, "productid: "+pid};
 	}
 	
-	//@RequestBody - 주로 json데이터를 서버에 보내서 원하는 타입의 객체로 변환하는 용도로 사용
-	//@RequestBody는 요청(request)한 내용(body)를 처리하기 때문에, 일반적인 파라미터 전달방식을 사용할 수 없어서 PostMapping만 사용.
+	//@RequestBody - 二쇰줈 json�뜲�씠�꽣瑜� �꽌踰꾩뿉 蹂대궡�꽌 �썝�븯�뒗 ���엯�쓽 媛앹껜濡� 蹂��솚�븯�뒗 �슜�룄濡� �궗�슜
+	//@RequestBody�뒗 �슂泥�(request)�븳 �궡�슜(body)瑜� 泥섎━�븯湲� �븣臾몄뿉, �씪諛섏쟻�씤 �뙆�씪誘명꽣 �쟾�떖諛⑹떇�쓣 �궗�슜�븷 �닔 �뾾�뼱�꽌 PostMapping留� �궗�슜.
 	@PostMapping("/ticket")
 	public Ticket convert(@RequestBody Ticket ticket) {
 		log.info("convert ....... ticket"+ ticket);
 		return ticket;
+	}
+	
+	
+	
+	//spring-security-practice
+	@GetMapping("/all")
+	public void doAll() {
+		log.info("do all can access everybody!");
+	}
+	
+	@GetMapping("/member")
+	public void doMember() {
+		log.info("logined member!");
+	}
+	
+	@GetMapping("/admin")
+	public void doAdmin() {
+		log.info("admin only");
 	}
 }
