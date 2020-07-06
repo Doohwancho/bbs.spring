@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 1. check 'security' on namespace -->
+	
+	<!-- 2. security check하면,  http://www.springframework.org/schema/security/spring-security-5.0.xsd 에서 5.0버전이 문제 발생하니까, /schema/security/spring-security.xsd로 수정. (4.2까지 문제 없음)-->
+	
+	<!-- 3. 스프링 시작지점(security:http)와 스프링 시큐리티 동작에 필요한 Authentication Manager 등록 -->
+	
+	<security:http>
+	
+		<security:form-login />
+		
+	</security:http>
+	
+	<security:authentication-manager></security:authentication-manager>
+	
+	
+</beans>
