@@ -38,6 +38,9 @@
 		<!-- 9. 커스텀 로그인 페이지 -->
 		<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
 		 
+		 <!-- 10. 커스텀 로그아웃 페이지 -->
+		 <security:logout logout-url="/customLogout" invalidate-session="true"/>
+		 
 	</security:http>
 	
 	<!-- 5. 단순 로그인 처리 -->
