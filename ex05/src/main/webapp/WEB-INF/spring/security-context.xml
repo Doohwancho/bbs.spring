@@ -13,8 +13,9 @@
 	
 	<!-- 3. 스프링 시작지점(security:http)와 스프링 시큐리티 동작에 필요한 Authentication Manager 등록 -->
 	
-	<!-- 8.커스텀 접근 페이지 -->
+	<!-- 8, 9.커스텀 접근 페이지 -->
 	<bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
+	<bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean>
 	
 	<!-- 7. 접근제한 메시지 custom (AccessDeniedHandler 직접 구현) -->
 	<!-- <security:http auto-config="true" use-expressions="true"> -->
@@ -34,8 +35,9 @@
 		<!-- 8. 커스텀 접근제한 페이지 --> 
 		<security:access-denied-handler ref="customAccessDenied"/>
 		
-		<security:form-login />
-		
+		<!-- 9. 커스텀 로그인 페이지 -->
+		<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
+		 
 	</security:http>
 	
 	<!-- 5. 단순 로그인 처리 -->
