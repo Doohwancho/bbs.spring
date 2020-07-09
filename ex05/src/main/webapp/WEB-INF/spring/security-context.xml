@@ -45,6 +45,10 @@
 		 <!-- 10. 커스텀 로그아웃 페이지 -->
 		 <security:logout logout-url="/customLogout" invalidate-session="true"/>
 		 
+		 <!-- 13. remember-me -->
+		 <!-- 브라우저 껐다가 다시 들어오면 cookie에 remember-me에 정보가 남아있는걸 볼 수 있음 -->
+		 <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" />
+		 
 	</security:http>
 	
 	<!-- 5. 단순 로그인 처리 -->
