@@ -180,7 +180,9 @@
 		<div class="card w-75 border-secondary mb-3" style="width: 18rem;"> 
 		  <div class="card-header"> 
 		    	댓글 
-		    	<button type="button" id = "addReplyBtn" class="btn btn-success float-right">New Reply</button>
+		    	<sec:authorize access="isAuthenticated()">
+					<button type="button" id = "addReplyBtn" class="btn btn-success float-right">New Reply</button>
+				</sec:authorize>
 		  </div> <!-- button - new reply -->
 		  
 		  <ul class="list-group list-group-flush" id = "chat">
