@@ -52,6 +52,7 @@
 	
 	
 	<!-- spring security filter -->
+	<!-- 순서주의! spring security filter가 위에 encoding filter밑에 나와야 한글이 안깨진다! 순서바뀌면 깨짐!-->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

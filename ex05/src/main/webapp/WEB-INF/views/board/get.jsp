@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -135,9 +136,15 @@
 							class="form-control" name="writer" placeholder="write writer"
 							value='<c:out value="${board.writer }"/>' readonly>
 					</div>
-
-					<button type="button" data-oper='modify' id="modifyBtn"
-						class="btn btn-primary">Modify</button>
+					
+					<sec:authentication property="principal" var="pinfo"/>
+					
+					<sec:authorize access="isAuthenticated()">
+						<c:if test="${pinfo.username eq board.writer}">
+							<button type="button" data-oper='modify' id="modifyBtn" class="btn btn-primary">Modify</button>
+						</c:if>
+					</sec:authorize>
+					
 					<button type="button" data-oper='list' id="listBtn"
 						class="btn btn-primary">List</button>
 							<!-- end of button -->
