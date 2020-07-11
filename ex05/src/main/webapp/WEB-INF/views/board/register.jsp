@@ -170,6 +170,10 @@
 		
 	<script>
 		$(document).ready(function(e){
+			//Spring-security 적용 이 후, 게시물 등록 위해 ajax에 X-CSRF-TOKEN 처리
+			var csrfHeaderName="${_csrf.headerName}";
+			var csrfTokenValue="${_csrf.token}";
+			
 			var formObj = $("form[role='form']");
 			
 			$("button[type='submit']").on("click", function(e){
@@ -228,6 +232,9 @@
 					url: '/uploadAjaxAction',
 					processData: false,
 					contentType: false,
+					beforeSend: function(xhr){
+						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					},
 					data: formData,
 					type: 'POST',
 					dataType:'json', 
@@ -290,6 +297,9 @@
 				$.ajax({
 					url:'/deleteFile',
 					data: {fileName: targetFile, type:type},
+					beforeSend: function(xhr){
+						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					},
 					dataType:'text',
 					type:'POST',
 					success:function(result){ 
