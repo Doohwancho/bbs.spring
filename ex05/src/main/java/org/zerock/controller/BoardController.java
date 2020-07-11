@@ -108,6 +108,7 @@ public class BoardController {
 		model.addAttribute("board", service.get(bno));
 	}
 	
+	@PreAuthorize("principal.username == #board.writer")
 	@PostMapping("/modify")
 	public String modify(BoardVO board, Criteria cri, RedirectAttributes rttr) {
 		log.info("modify: "+board);
@@ -129,8 +130,9 @@ public class BoardController {
 //		return "redirect:/board/list";
 	}
 	
+	@PreAuthorize("principal.username == #writer")
 	@PostMapping("/remove") //삭제는 반드시 post방식으로만!!
-	public String remove(@RequestParam("bno") Long bno, Criteria cri, RedirectAttributes rttr) {
+	public String remove(@RequestParam("bno") Long bno, Criteria cri, RedirectAttributes rttr, String writer) {
 		log.info("remove..."+bno);
 		
 		List<BoardAttachVO> attachList = service.getAttachList(bno);
