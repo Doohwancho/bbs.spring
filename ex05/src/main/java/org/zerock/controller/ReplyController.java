@@ -99,12 +99,15 @@ public class ReplyController {
 	}
 	
 	
+	@PreAuthorize("principal.username == #vo.replyer")
 	@DeleteMapping(
 			value ="/{rno}",
 			produces = {MediaType.TEXT_PLAIN_VALUE}
 			)
-	public ResponseEntity<String> remove(@PathVariable("rno") Long rno){
+	public ResponseEntity<String> remove(@RequestBody ReplyVO vo, @PathVariable("rno") Long rno){
 		log.info("remove rno: "+rno);
+		
+		log.info("replyer: "+vo.getReplyer());
 		
 		return service.remove(rno) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 								: new ResponseEntity<>("success", HttpStatus.INTERNAL_SERVER_ERROR);

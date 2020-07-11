@@ -583,7 +583,24 @@
 			
 			//click a reply -> remove
 			modalRemoveBtn.on("click", function(e){
-				replyService.remove(modal.data("rno"), function(result){
+				
+				if(!replyer){
+					alert("로그인 후 삭제가 가능합니다.");
+					modal.modal("hide");
+					return;
+				}
+				
+				var originalReplyer = modalInputReplyer.val();
+				
+				console.log("Original replyer: "+originalReplyer);
+				
+				if(replyer != originalReplyer){
+					alert("자신이 작성한 댓글만 삭제 가능합니다!");
+					modal.modal("hide");
+					return;
+				}
+				
+				replyService.remove(modal.data("rno"), originalReplyer, function(result){
 					alert(result);
 					modal.modal("hide");
 					showList(pageNum);
