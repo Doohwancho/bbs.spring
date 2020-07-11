@@ -18,7 +18,7 @@
 
 
 
-<title>Hello, Autochess!</title>
+<title>Hello, BattleGround!</title>
 </head>
 
 <body>
@@ -147,6 +147,10 @@
 	<script type="text/javascript">
 	
 		$(document).ready(function(){
+			//Spring-security 적용 이 후, 게시물 등록 위해 ajax에 X-CSRF-TOKEN 처리
+			var csrfHeaderName="${_csrf.headerName}";
+			var csrfTokenValue="${_csrf.token}";
+			
 			var formObj = $("form");
 			
 			$('button').on("click", function(e){
@@ -277,6 +281,9 @@
 					contentType: false,
 					data: formData,
 					type: 'POST',
+					beforeSend: function(xhr){
+						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					},
 					dataType:'json', 
 					success: function(result){
 						//alert("Uploaded");
