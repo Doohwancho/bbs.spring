@@ -15,7 +15,11 @@
 	
 	<!-- 8, 9.커스텀 접근 페이지 -->
 	<bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
-	<bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean>
+	
+	<!-- 14. 기존 프로젝트에 스프링 시큐리티 접목하기 -->
+	<!-- <bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean>  -->
+	
+	
 	<!-- 11.jdbc를 이용한 간편/인증/권한 처리 -->
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	<!-- 12. 커스텀 UserDetailsService 활용 -->
@@ -40,10 +44,14 @@
 		<security:access-denied-handler ref="customAccessDenied"/>
 		
 		<!-- 9. 커스텀 로그인 페이지 -->
-		<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
+		<!-- <security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>  -->
+		 
+		 <!-- 14. 기존 프로젝트에 스프링 시큐리티 접목하기 -->
+		 <!--  authentication-success-handler-ref="customLoginSuccess" 삭제. 왜? -->
+		 <security:form-login login-page="/customLogin"/>
 		 
 		 <!-- 10. 커스텀 로그아웃 페이지 -->
-		 <security:logout logout-url="/customLogout" invalidate-session="true"/>
+		 <security:logout logout-url="/customLogout" invalidate-session="true"/> 
 		 
 		 <!-- 13. remember-me -->
 		 <!-- 브라우저 껐다가 다시 들어오면 cookie에 remember-me에 정보가 남아있는걸 볼 수 있음 -->

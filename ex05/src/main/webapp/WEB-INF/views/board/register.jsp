@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -115,9 +117,9 @@
 					</div>
 
 					<div class="form-group">
-						<label for="exampleInputPassword1">Writer</label> <input
-							type="text" class="form-control" name="writer"
-							placeholder="write writer">
+						<label for="exampleInputPassword1">Writer</label> 
+						<input class="form-control" name="writer"
+							value='<sec:authentication property="principal.username" />' readonly />
 					</div>
 
 					<button type="submit" class="btn btn-primary">Submit</button>

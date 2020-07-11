@@ -17,8 +17,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-
-<title>Welcome to Autochess World!</title>
+ 
+<title>Welcome to battleground!</title>
 </head>
 
 <body>
@@ -43,7 +43,7 @@
 
 
 	<div class="c1" style="padding: 1rem;">
-		<h1>Welcome to Autochess!</h1>
+		<h1>Welcome to BattleGround!</h1>
 		<br>
 		<table class="table">
 			<button type="button" class="btn btn-dark btn-secondary float-right" id="regBtn">write</button>
