@@ -232,7 +232,7 @@
 	        <form>
 			  <div class="form-group">
 			    <label for="replyer">Replyer</label>
-			    <input type="text" class="form-control" id="modalReplyer">
+			    <input type="text" class="form-control" id="modalReplyer" readonly>
 			  </div>
 			  <div class="form-group">
 			    <label for="reply">Reply</label>
@@ -489,9 +489,6 @@
 			}
 			
 			
-			
-
-			
 			var modal = $('#myModal');
 			var modalInputReply = modal.find("#modalReply");
 			var modalInputReplyer = modal.find("#modalReplyer");
@@ -501,12 +498,24 @@
 			var modalRemoveBtn = modal.find("#modalRemoveBtn");
 			var modalRegisterBtn = modal.find("#modalRegisterBtn");
 			
+			var replyer = null;
 			
+			<sec:authorize access="isAuthenticated()">
+				replyer = '<sec:authentication property="principal.username"/>';
+			</sec:authorize>
+			
+			var csrfHeaderName="${_csrf.headerName}";
+			var csrfTokenValue="${_csrf.token}";
+			
+			//Ajax spring security header...
+			$(document).ajaxSend(function(e, xhr, options){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			});
 			 
 			//when click "new reply"
 			$("#addReplyBtn").on("click", function(){
 				modalInputReply.val("");
-				modalInputReplyer.val("");
+				modalInputReplyer.val(replyer);
 				modalInputReplyDate.hide();
 				modalModifyBtn.hide();
 				modalRemoveBtn.hide(); 
