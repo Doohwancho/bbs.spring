@@ -10,6 +10,7 @@ import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.mapper.BoardAttachMapper;
 import org.zerock.mapper.BoardMapper;
+import org.zerock.mapper.ReplyMapper;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -24,6 +25,9 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Setter(onMethod_=@Autowired)
 	private BoardAttachMapper attachMapper;
+	
+	@Setter(onMethod_=@Autowired)
+	private ReplyMapper replyMapper;
 	
 	@Transactional
 	@Override
@@ -71,8 +75,11 @@ public class BoardServiceImpl implements BoardService{
 	@Transactional
 	@Override
 	public boolean remove(Long bno) {
+		log.info("위배3"+" bno: "+bno);
 		log.info("remove...");
 		attachMapper.deleteAll(bno);
+		log.info("위배4"+" bno: "+bno);
+		
 		return mapper.delete(bno) == 1;
 	}
 //	@Override

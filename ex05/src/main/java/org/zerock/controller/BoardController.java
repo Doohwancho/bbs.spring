@@ -135,17 +135,23 @@ public class BoardController {
 	public String remove(@RequestParam("bno") Long bno, Criteria cri, RedirectAttributes rttr, String writer) {
 		log.info("remove..."+bno);
 		
+		log.info("위배1");
+		
 		List<BoardAttachVO> attachList = service.getAttachList(bno);
 		
+		log.info("위배2"+" bno: "+bno);
+		
 		if(service.remove(bno)) {
+			log.info("위배5");
 			deleteFiles(attachList);
-			
+			log.info("위배6");
 			rttr.addFlashAttribute("result", "success");
 		}
 //		rttr.addAttribute("pageNum", cri.getPageNum());
 //		rttr.addAttribute("amount", cri.getAmount());
 //		rttr.addAttribute("type", cri.getType());
 //		rttr.addAttribute("keyword", cri.getKeyword());
+		log.info("위배5");
 		
 		return "redirect:/board/list"+cri.getListLink(); 
 	}

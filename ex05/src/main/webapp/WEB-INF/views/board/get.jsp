@@ -20,7 +20,7 @@
 	 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<title>Hello, Autochess!</title>
+<title>Hello, BattleGround!</title>
 
 <style>
 	.uploadResult{
@@ -570,7 +570,26 @@
 			
 			//click a reply -> modify (내용 reply만 바뀜)
 			modalModifyBtn.on("click", function(e){
-				var reply = {rno : modal.data("rno"), reply: modalInputReply.val()};
+				
+				var originalReplyer= modalInputReplyer.val();
+				
+				var reply = {rno : modal.data("rno"), 
+						     reply: modalInputReply.val(),
+						     replyer: originalReplyer};
+				
+				if(!replyer){
+					alert("로그인 후 수정이 가능합니다!");
+					modal.modal("hide");
+					return;
+				}
+				
+				console.log("Original Replyer: "+originalReplyer);
+				
+				if(replyer != originalReplyer){
+					alert("자신이 작성한 댓글만 수정이 가능합니다.");
+					modal.modal("hide");
+					return;
+				}
 				
 				replyService.update(reply, function(result){
 					alert(result);

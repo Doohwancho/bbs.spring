@@ -122,6 +122,7 @@ public class ReplyController {
 	 * patch는 바꾼것만 바꿔줌.
 	 */
 	
+	@PreAuthorize("principal.username==#vo.replyer")
 	@RequestMapping(
 			method = {RequestMethod.PUT, RequestMethod.PATCH },
 			value ="/{rno}",
