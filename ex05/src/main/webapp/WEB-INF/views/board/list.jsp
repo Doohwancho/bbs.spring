@@ -37,15 +37,21 @@
 						<span class="sr-only">(current)</span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="list">Register</a></li>
-				<sec:authorize access="isAuthenticated()">
-					<li><a href="/customLogout"><i class="fa fa-sign-out fa-fw"></i>
-					Logout</a></li> 
-				</sec:authorize>
-				
-				<sec:authorize access="isAnonymous()">
-					<li><a href="/customLogin"><i class="fa fa-sign-out fa-fw"></i>
-					Login</a></li>  
-				</sec:authorize>
+				<li class="nav-item">
+						<sec:authorize access="isAnonymous()">
+							<li><a class="nav-link" href="/customLogin">
+								<i class="fa fa-sign-out fa-fw"></i> Login
+								</a>
+							</li>  
+						</sec:authorize>
+						
+						<sec:authorize access="isAuthenticated()">
+							<li><a class="nav-link" href="/customLogout">
+								<i class="fa fa-sign-out fa-fw"></i> Logout
+								</a>
+							</li>  
+						</sec:authorize>
+				</li>
 			</ul>
 		</div>
 	</nav>
