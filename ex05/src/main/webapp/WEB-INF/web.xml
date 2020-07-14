@@ -3,9 +3,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
+	<welcome-file-list>
+		<welcome-file>board/list.jsp</welcome-file>
+	</welcome-file-list>
+
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
+		<!-- 스프링 환경설정파일인 root-context.xml을 가장 먼저 참조. 여기서 jdbc, transaction, file-upload, quartz 등 참조. security-context.xml도 가서 spring security 참조. -->
 		<param-value>
 			/WEB-INF/spring/root-context.xml
 			/WEB-INF/spring/security-context.xml
@@ -13,12 +18,12 @@
 		<!-- for finding where secuirty-filter is at-->
 	</context-param>
 	
-	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<!-- 스프링 컨테이너 생성, shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<!-- Processes application requests -->
+	<!-- Dispatcher Servlet에 베이스 컨트롤러랑 jsp파일 지정. appServlet객체 생성.  Processes application requests -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -26,13 +31,17 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
+		<!-- 가장 첫번째 우선순위라는 뜻 -->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 		
+	<!-- Dispatcher의 모든 명령을 가로챌 수 있도록 등록. 특정 url변경 후 사용 가능. -->
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	
 	
 	<!-- 한글 깨짐 방지용 utf-8필터 -->
 	<filter>

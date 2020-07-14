@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,7 +31,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller //스프링의 빈으로 인식될 수 있게끔
 @Log4j
-@RequestMapping("/board/*") //board로 시작하면 무조건 이 컨트롤러로
+@RequestMapping(value= {"","/board/*"}) //board로 시작하면 무조건 이 컨트롤러로
 //@AllArgsConstructor       //BoardController는 BoardService에 의존적이므로, 이걸로 자동주입. 이거 안하면 @Setter(onMethod_={@Autowired}) 해
 public class BoardController {
 	
@@ -44,8 +45,9 @@ public class BoardController {
 //		model.addAttribute("listItems", service.getList()); //모델의 attribute에 list라는 이름으로 담는다.
 //	}
 	
-	@GetMapping("/list")
-	public void list(Criteria cri, Model model) { //list()는 나중에 게시글 목록 전달해야 하니까 Model을 파라미터로 지정
+//	@GetMapping("/list") 
+	@RequestMapping(value= {"/","/list","/home"}, method = RequestMethod.GET)
+	public String list(Criteria cri, Model model) { //list()는 나중에 게시글 목록 전달해야 하니까 Model을 파라미터로 지정
 		log.info("list: "+ cri);
 		model.addAttribute("list", service.getList(cri)); //모델의 attribute에 list라는 이름으로 담는다.
 //		model.addAttribute("pageMaker", new PageDTO(cri, 15));
@@ -60,7 +62,8 @@ public class BoardController {
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		
 		log.info(model);
-		log.info("##########################");
+		log.info("##########################"); 
+		return "board/list"; 
 	}
 	
 	
