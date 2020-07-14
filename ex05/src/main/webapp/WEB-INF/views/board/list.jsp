@@ -46,10 +46,16 @@
 						</sec:authorize>
 						
 						<sec:authorize access="isAuthenticated()">
+							<!-- 
 							<li><a class="nav-link" href="/customLogout">
 								<i class="fa fa-sign-out fa-fw"></i> Logout
 								</a>
-							</li>  
+							</li>
+							 -->  
+							<form id='logout' method='post' action="/customLogout">
+								<a class="nav-link">Logout</button>
+								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />		
+							</form>
 						</sec:authorize>
 				</li>
 			</ul>
@@ -207,8 +213,8 @@
 					$(".modal-body").html("게시글 "+parseInt(result)+" 번이 등록되었습니다.")
 
 					$("#myModal").modal("show"); 
-					} 
 				} 
+			} 
 			$("#regBtn").on("click", function(){
 				self.location="/board/register"; 
 			}); 
@@ -250,7 +256,10 @@
 				searchForm.submit();
 			});
 			
-			});
+			$("#logout").on("click", function(){
+				document.getElementById('logout').submit(); 
+			}); 
+		});
 			</script>
 </body>
 </html>
