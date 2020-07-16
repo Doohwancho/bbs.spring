@@ -97,8 +97,29 @@
 				<li class="nav-item active"><a class="nav-link" href="list">Home
 						<span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Register</a>
-				</li>
+				<sec:authorize access="isAnonymous()">
+					<li class="nav-item">
+						<form id='registerId' method='get' action="/customLogin">
+							<a class="nav-link">Register</a>
+							<input type="hidden" name="registerLoginSelector" value="registerActive" />		
+						</form>
+					</li>
+					<li class="nav-item">
+						<form id='loginId' method='get' action="/customLogin">
+							<a class="nav-link">Login</a>
+							<input type="hidden" name="registerLoginSelector" value="loginActive" />		
+						</form> 
+					</li>
+				</sec:authorize>
+				
+				<sec:authorize access="isAuthenticated()">
+					<li class="nav-item">
+					<form id='logoutId' method='post' action="/customLogout">
+						<a class="nav-link">Logout</a>
+						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />		
+					</form>
+					</li>
+				</sec:authorize>
 			</ul>
 		</div>
 	</nav> <!-- end of nav-bar -->
