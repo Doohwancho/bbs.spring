@@ -733,6 +733,16 @@
 			});
 		});
 		
+		$("#registerId").on("click", function(){
+			document.getElementById('registerId').submit(); 
+		}); 
+		$("#loginId").on("click", function(){
+			document.getElementById('loginId').submit(); 
+		}); 
+		$("#logoutId").on("click", function(e){
+			document.getElementById('logoutId').submit();
+		});
+		
 	</script>
 	 
 </body>
