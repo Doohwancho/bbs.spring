@@ -29,9 +29,6 @@ public class CommonController {
 		
 		log.info("registerLoginSelector " + registerLoginSelector);
 		
-		log.info("#############################왜???????????????????");
-		
-		
 		if(error != null) {
 			model.addAttribute("error", "Login Error Check Your Account!");
 		}

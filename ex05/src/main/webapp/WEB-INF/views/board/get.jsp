@@ -114,11 +114,19 @@
 				
 				<sec:authorize access="isAuthenticated()">
 					<li class="nav-item">
+						<a href="#" onclick="document.getElementById('logout-form').submit();">Sign out</a>
+						<form id="logout-form" action='<c:url value='/customLogout'/>' method="POST">
+						   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+						</form> 
+					</li> 
+					<!-- 
+					<li class="nav-item">
 					<form id='logoutId' method='post' action="/customLogout">
 						<a class="nav-link">Logout</a>
 						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />		
 					</form>
 					</li>
+					 -->
 				</sec:authorize>
 			</ul>
 		</div>

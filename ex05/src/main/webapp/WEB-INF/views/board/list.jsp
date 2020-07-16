@@ -54,12 +54,19 @@
 				
 				<sec:authorize access="isAuthenticated()">
 					<li class="nav-item">
-						<form id='logoutId' method='post' action="/customLogout">
-							<a class="nav-link">Logout</a>
-							<input type="hidden" name="registerLoginSelector" value="logoutActive" />
-							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />		
-						</form>
+						<a class="nav-link" href="#" onclick="document.getElementById('logout-form').submit();">Sign out</a>
+						<form id="logout-form" action='<c:url value='/customLogout'/>' method="POST">
+						   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+						</form> 
+					</li> 
+					<!-- 
+					<li class="nav-item">
+					<form id='logoutId' method='post' action="/customLogout">
+						<a class="nav-link">Logout</a>
+						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />		
+					</form>
 					</li>
+					 -->
 				</sec:authorize>
 				
 			</ul>
@@ -267,6 +274,7 @@
 			$("#loginId").on("click", function(){
 				document.getElementById('loginId').submit(); 
 			}); 
+			/*
 			$("#logoutId").on("click", function(e){
 				//e.stopImmediatePropagation();
 				//e.stopPropagation();
@@ -276,6 +284,7 @@
 				
 				//return false;
 			});
+			*/
 			 
 		}); 
 		
