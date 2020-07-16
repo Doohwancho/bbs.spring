@@ -34,6 +34,8 @@
 		<div class="collapse navbar-collapse" id="navbarNav"> 
 			<ul class="navbar-nav">
 				<li class="nav-item active"><a class="nav-link" href="list">Home<span class="sr-only">(current)</span></a></li>
+				
+				
 				<sec:authorize access="isAnonymous()">
 					<li class="nav-item">
 						<form id='registerId' method='get' action="/customLogin">
@@ -48,13 +50,15 @@
 						</form>
 					</li>
 				</sec:authorize>
+				 
 				
 				<sec:authorize access="isAuthenticated()">
 					<li class="nav-item">
-					<form id='logoutId' method='post' action="/customLogout">
-						<a class="nav-link">Logout</a>
-						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />		
-					</form>
+						<form id='logoutId' method='post' action="/customLogout">
+							<a class="nav-link">Logout</a>
+							<input type="hidden" name="registerLoginSelector" value="logoutActive" />
+							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />		
+						</form>
 					</li>
 				</sec:authorize>
 				
@@ -263,8 +267,14 @@
 			$("#loginId").on("click", function(){
 				document.getElementById('loginId').submit(); 
 			}); 
-			$("#logoutId").on("click", function(){
-				document.getElementById('logoutId').submit(); 
+			$("#logoutId").on("click", function(e){
+				//e.stopImmediatePropagation();
+				//e.stopPropagation();
+				//e.preventDefault();
+				
+				document.getElementById('logoutId').submit();
+				
+				//return false;
 			});
 			 
 		}); 

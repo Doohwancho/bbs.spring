@@ -51,13 +51,27 @@
 		 <security:form-login login-page="/customLogin"/>
 		 
 		 <!-- 10. 커스텀 로그아웃 페이지 -->
-		 <security:logout logout-url="/customLogout" invalidate-session="true"/> 
+		 <security:logout logout-url="/customLogout" invalidate-session="true" /> 
+		 
+		 <!-- 15. 로그아웃 후 기본경로를 /login?logout이 아닌 list.jsp로 변경
+		 <security: http pattern="/admin/**" >
+		    <logout 
+		        logout-url="/admin/logout.do" 
+		        logout-success-url="/admin/login.do" 
+		        success-handler-ref="customLogoutSuccessHandler" 
+		        invalidate-session="true" 
+		        delete-cookies="JSESSIONID">
+		    </logout>
+		</http>
+ 		-->
 		 
 		 <!-- 13. remember-me -->
 		 <!-- 브라우저 껐다가 다시 들어오면 cookie에 remember-me에 정보가 남아있는걸 볼 수 있음 -->
 		 <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" />
 		 
 		 <security:logout logout-url="/customLogout" invalidate-session="true" delete-cookies="remember-me,JSESSION_ID" />
+		 
+		 
 		 
 	</security:http>
 	

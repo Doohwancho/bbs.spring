@@ -22,12 +22,15 @@ public class CommonController {
 	}
 	
 	@GetMapping("/customLogin")
-	public void loginInput(String error, String logout, @RequestParam("registerLoginSelector") String registerLoginSelector, Model model) {
-		log.info("error: " + error);
+	public void loginInput(String error, String logout, @RequestParam(value="registerLoginSelector", required=false) String registerLoginSelector, Model model) {
+		log.info("error: " + error); 
 		
 		log.info("logout: "+ logout);
 		
 		log.info("registerLoginSelector " + registerLoginSelector);
+		
+		log.info("#############################왜???????????????????");
+		
 		
 		if(error != null) {
 			model.addAttribute("error", "Login Error Check Your Account!");
