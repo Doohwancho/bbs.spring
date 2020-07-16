@@ -33,31 +33,31 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav"> 
 			<ul class="navbar-nav">
-				<li class="nav-item active"><a class="nav-link" href="list">Home
-						<span class="sr-only">(current)</span>
-				</a></li>
-				<li class="nav-item"><a class="nav-link" href="list">Register</a></li>
-				<li class="nav-item">
-						<sec:authorize access="isAnonymous()">
-							<li><a class="nav-link" href="/customLogin">
-								<i class="fa fa-sign-out fa-fw"></i> Login
-								</a>
-							</li>  
-						</sec:authorize>
-						
-						<sec:authorize access="isAuthenticated()">
-							<!-- 
-							<li><a class="nav-link" href="/customLogout">
-								<i class="fa fa-sign-out fa-fw"></i> Logout
-								</a>
-							</li>
-							 -->  
-							<form id='logout' method='post' action="/customLogout">
-								<a class="nav-link">Logout</button>
-								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />		
-							</form>
-						</sec:authorize>
-				</li>
+				<li class="nav-item active"><a class="nav-link" href="list">Home<span class="sr-only">(current)</span></a></li>
+				<sec:authorize access="isAnonymous()">
+					<li class="nav-item">
+						<form id='registerId' method='get' action="/customLogin">
+							<a class="nav-link">Register</a>
+							<input type="hidden" name="registerLoginSelector" value="registerActive" />		
+						</form>
+					</li>
+					<li class="nav-item">
+						<form id='loginId' method='get' action="/customLogin">
+							<a class="nav-link">Login</a>
+							<input type="hidden" name="registerLoginSelector" value="loginActive" />		
+						</form>
+					</li>
+				</sec:authorize>
+				
+				<sec:authorize access="isAuthenticated()">
+					<li class="nav-item">
+					<form id='logoutId' method='post' action="/customLogout">
+						<a class="nav-link">Logout</a>
+						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />		
+					</form>
+					</li>
+				</sec:authorize>
+				
 			</ul>
 		</div>
 	</nav>
@@ -256,11 +256,20 @@
 				searchForm.submit();
 			});
 			
-			$("#logout").on("click", function(){
-				document.getElementById('logout').submit(); 
+			
+			$("#registerId").on("click", function(){
+				document.getElementById('registerId').submit(); 
 			}); 
-		});
-			</script>
+			$("#loginId").on("click", function(){
+				document.getElementById('loginId').submit(); 
+			}); 
+			$("#logoutId").on("click", function(){
+				document.getElementById('logoutId').submit(); 
+			});
+			 
+		}); 
+		
+	</script>
 </body>
 </html>
 

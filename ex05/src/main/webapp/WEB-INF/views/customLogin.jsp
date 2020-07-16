@@ -226,9 +226,23 @@
     <div class="form">
 
         <ul class="tab-group">
-            <li class="tab active"><a href="#signup">Sign Up</a></li>
-            <li class="tab"><a href="#login">Log In</a></li>
-        </ul>
+	        <li class="tab active"><a href="#signup">Sign Up</a></li>
+	    	<li class="tab" id="tabLogin"><a href="#login">Log In</a></li>
+        
+        <!--     	
+		<c:choose>
+        	<c:when test="${registerLoginSelector eq 'registerActive'}">
+				<li class="tab active"><a href="#signup">Sign Up</a></li>
+            	<li class="tab"><a href="#login">Log In</a></li>
+			</c:when>
+			<c:otherwise>
+				<li class="tab"><a href="#signup">Sign Up</a></li>
+            	<li class="tab active"><a href="#login">Log In</a></li>
+			</c:otherwise>
+		</c:choose>
+		 -->
+		
+        </ul> 
 
         <div class="tab-content">
             <div id="signup">
@@ -309,7 +323,16 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
     <script>
-
+    	
+    	$(document).ready(function() {
+    		var toggle = '<c:out value="${registerLoginSelector }"/>'
+    		
+    		if(toggle === "loginActive"){
+    			$("#tabLogin").trigger("click"); //$(document).ready()없이 쓰면 트리거가 작동을 안함.	
+    		}
+    	  	
+    	});
+    	
         $(".form").find('input, textarea').on('keyup blur focus', function (e) {
 
             var $this = $(this),
@@ -338,8 +361,9 @@
             }
         });
 
-        $('.tab a').on('click', function (e) {
-  
+        
+        $('.tab a').on("click", function (e) {
+        	
             e.preventDefault();
             
             $(this).parent().addClass('active');
@@ -349,9 +373,26 @@
 
             $('.tab-content > div').not(target).hide();
             
-            $(target).fadeIn(600);
+            $(target).fadeIn(600); 
             
         });
+        
+        
+        $('#tabLogin').on("click", function(e) { 
+            e.preventDefault();
+            
+            $(this).addClass('active');
+            $(this).siblings().removeClass('active');
+            
+            target = $(this).find("a").attr('href');
+
+            $('.tab-content > div').not(target).hide();
+            
+            $(target).fadeIn(600); 
+        }); 
+		     
+
+        
         
         /*
 		$(".btnSubmit").on("click", function(e){

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.log4j.Log4j;
 
@@ -21,10 +22,12 @@ public class CommonController {
 	}
 	
 	@GetMapping("/customLogin")
-	public void loginInput(String error, String logout, Model model) {
+	public void loginInput(String error, String logout, @RequestParam("registerLoginSelector") String registerLoginSelector, Model model) {
 		log.info("error: " + error);
 		
 		log.info("logout: "+ logout);
+		
+		log.info("registerLoginSelector " + registerLoginSelector);
 		
 		if(error != null) {
 			model.addAttribute("error", "Login Error Check Your Account!");
@@ -32,6 +35,15 @@ public class CommonController {
 		
 		if(logout != null) {
 			model.addAttribute("logout", "Logout!!");
+		}
+		
+		if(registerLoginSelector == null) {
+			log.info("registerLoginSelector가 없습니다."); 
+		}
+		else if(registerLoginSelector.equals("registerActive")) {
+			model.addAttribute("registerLoginSelector", "registerActive"); 
+		} else if(registerLoginSelector.equals("loginActive")) {
+			model.addAttribute("registerLoginSelector", "loginActive");
 		}
 	}
 	
