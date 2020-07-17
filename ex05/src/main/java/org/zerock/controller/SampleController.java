@@ -1,26 +1,14 @@
 package org.zerock.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.SampleVO;
-import org.zerock.domain.Ticket;
 
 import lombok.extern.log4j.Log4j;
 
@@ -54,11 +42,11 @@ public class SampleController {
 	 * produces�냽�꽦�� �깮�왂媛��뒫.
 	 */
 	
-	@GetMapping(value= "/getSample", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, 
-												 MediaType.APPLICATION_XML_VALUE }) //Media type?
-	public SampleVO getSample() {
-		return new SampleVO(112, "A", "B");
-	}
+//	@GetMapping(value= "/getSample", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, 
+//												 MediaType.APPLICATION_XML_VALUE }) //Media type?
+//	public SampleVO getSample() {
+//		return new SampleVO(112, "A", "B");
+//	}
 	
 	/*
 		1. localhost:5551/sample/getSample
@@ -73,56 +61,13 @@ public class SampleController {
 		{"mno":112,"firstName":"�뒪��","lastName":"濡쒕뱶"}
 	 */
 	
-	@GetMapping(value="/getSample2")
-	public SampleVO getSample2() {
-		return new SampleVO(113, "濡쒖폆","�씪荑�");
-	}
-	
-	@GetMapping(value="/getList")
-	public List<SampleVO> getList(){
-		return IntStream.range(1,10).mapToObj(i -> new SampleVO(i, i+" First", i+" Second")).collect(Collectors.toList());
-	}
-	
-	@GetMapping(value="/getMap")
-	public Map<String, SampleVO> getMap(){
-		Map<String, SampleVO> map = new HashMap<>();
-		map.put("First", new SampleVO(111, "洹몃（�듃","二쇰땲�뼱"));
-		return map;
-	}
-	
-	//ResponseEntity type�� �젙�긽�쟻�씤 �뜲�씠�꽣�씤吏�, 鍮꾩젙�긽�쟻�씤 �뜲�씠�꽣�씤吏� �솗�씤�븿.
-	//http://localhost:5551/sample/check?height=140&weight=60 
-	//502 error
-	@GetMapping(value="/check", params= {"height", "weight"})
-	public ResponseEntity<SampleVO> check(Double height, Double weight){
-		SampleVO vo = new SampleVO(0,""+height, ""+weight);
-		ResponseEntity<SampleVO> result = null;
-		
-		if(height < 150) {
-			result = ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(vo);
-		} else {
-			result = ResponseEntity.status(HttpStatus.OK).body(vo);
-		}
-		
-		return result;
-	}
-	
-	
 	//@PathVariable - url�뿉 理쒕��븳 留롮� �젙蹂대�� �떞怨� �떢�쓣�븣 �궗�슜�븯�뒗 寃�
 	//http://localhost:5551/sample/product/hello/204
 	@GetMapping("/product/{cat}/{pid}") 
 	public String[] getPath(@PathVariable String cat, @PathVariable Integer pid) {
 		return new String[] {"category: "+ cat, "productid: "+pid};
 	}
-	
-	//@RequestBody - 二쇰줈 json�뜲�씠�꽣瑜� �꽌踰꾩뿉 蹂대궡�꽌 �썝�븯�뒗 ���엯�쓽 媛앹껜濡� 蹂��솚�븯�뒗 �슜�룄濡� �궗�슜
-	//@RequestBody�뒗 �슂泥�(request)�븳 �궡�슜(body)瑜� 泥섎━�븯湲� �븣臾몄뿉, �씪諛섏쟻�씤 �뙆�씪誘명꽣 �쟾�떖諛⑹떇�쓣 �궗�슜�븷 �닔 �뾾�뼱�꽌 PostMapping留� �궗�슜.
-	@PostMapping("/ticket")
-	public Ticket convert(@RequestBody Ticket ticket) {
-		log.info("convert ....... ticket"+ ticket);
-		return ticket;
-	}
-	
+
 	
 	
 	//spring-security-practice

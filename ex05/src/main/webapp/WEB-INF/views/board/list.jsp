@@ -276,7 +276,7 @@
 			}); 
 			/*
 			$("#logoutId").on("click", function(e){
-				//e.stopImmediatePropagation();
+				//e.stopImmediatePropagation(); 
 				//e.stopPropagation();
 				//e.preventDefault();
 				
