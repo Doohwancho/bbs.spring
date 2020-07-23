@@ -2,12 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Custom Login Page</title>
+<title>Register ID Page</title>
 
 	<style>
         /* @import "compass/css3"; */
@@ -66,7 +65,7 @@
             color: #a0b3b0;
             font-size: 20px;
             float: left;
-            width: 50%;
+            width: 100%;
             text-align: center;
             cursor: pointer;
             transition: 0.5s ease;
@@ -216,51 +215,55 @@
     </style>
 </head>
 
-<!-- 
-	* adders
-	<h2><c:out value="${error }"/></h2>
-	<h2><c:out value="${logout }"/></h2>
- -->
-
 <body>
-    
-	<div class="form">
+    <div class="form">
 
-        <div id="login">
-            <h1>Welcome Back!</h1>
-            
-            <form action="/login" method="post">
+        <div class="tab-content">
+            <div id="signup">
+                <h1>Sign Up for Free</h1>
 
-                <div class="field-wrap">
-                    <label>
-                        User ID<span class="req">*</span>
-                    </label>
-                    <input type="text" name='username' id="userId" value="" autofocus/>
-                </div>
+                <form role="form" action="/member/register" method="post">
+                    <div class="field-wrap">
+                            <label>
+                                User ID<span class="req">*</span>
+                            </label>
+                            <input type="text" id="userid" name="userid" required autocomplete="off" />
+                        </div>
+                    
+                    <div class="field-wrap">
+                        <label>
+                            Password<span class="req">*</span>
+                        </label>
+                        <input type="password" id="userpw" name="userpw" required autocomplete="off" />
+                    </div>
+                    
+                    <div class="field-wrap">
+                        <label>
+                            User Name<span class="req">*</span>
+                        </label>
+                        <input type="text" id="userName" name="userName" required autocomplete="off" />
+                    </div>
+                    
 
-                <div class="field-wrap">
-                    <label>
-                        Password<span class="req">*</span>
-                    </label>
-                    <input type="password" name='password' id="userPassword" value="" /> 
-                </div>
-                <div class="field-wrap"> 
-                    <label>Remember Me</label><input type="checkbox" class="chkbox" id="cb1" name='remember-me'>
-                </div>
-                <!-- <p class="forgot"><a href="#">Forgot Password?</a></p>  -->
-                <button class="button button-block btnSubmit">Log In</button>
-                
-                <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                    <button type="submit" id="registerSubmit" class="button button-block" />Register</button>
+                    
+					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+					
+                </form>
 
-            </form>
-        </div>
+            </div>
 
-    </div> <!--/form -->
+            <div id="login">
+                <!--deleted! -->
+            </div>
+        </div><!-- tab-content -->
+
+    </div> <!-- /form -->
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
     <script>
-  
+    	
     	
         $(".form").find('input, textarea').on('keyup blur focus', function (e) {
 
@@ -289,26 +292,37 @@
                 }
             }
         });
-
         
-        
-		$(".btnSubmit").on("click", function(e){
-			e.preventDefault();
-			
-        	if($("#userId").val()==""){
+        $("#registerSubmit").on("click", function(e){
+        	e.preventDefault();
+        	
+        	if($("#userid").val()==""){
 				alert("아이디를 입력해주세요.");
 				$("#userid").focus();
 				return false;
 			}
-			if($("#userPassword").val()==""){
+			if($("#userpw").val()==""){
 				alert("비밀번호를 입력해주세요.");
 				$("#userpw").focus();
 				return false;
 			}
+			if($("#userName").val()==""){
+				alert("성명을 입력해주세요.");
+				$("#userName").focus();
+				return false;
+			}
 			
+			console.log("register btn clicked!");
+			$("form").submit();
+        });
+        
+        
+        /*
+		$(".btnSubmit").on("click", function(e){
+			e.preventDefault();
 			$("form").submit();
 		});
-        
+        */
         
     </script>
 </body>

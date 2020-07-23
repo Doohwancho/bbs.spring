@@ -38,15 +38,13 @@
 				
 				<sec:authorize access="isAnonymous()">
 					<li class="nav-item">
-						<form id='registerId' method='get' action="/customLogin">
-							<a class="nav-link">Register</a>
-							<input type="hidden" name="registerLoginSelector" value="registerActive" />		
+						<form id='registerId' method='get' action="/member/register">
+							<a class="nav-link">Register</a>	
 						</form>
 					</li>
 					<li class="nav-item">
 						<form id='loginId' method='get' action="/customLogin">
-							<a class="nav-link">Login</a>
-							<input type="hidden" name="registerLoginSelector" value="loginActive" />		
+							<a class="nav-link">Login</a>		
 						</form>
 					</li>
 				</sec:authorize>

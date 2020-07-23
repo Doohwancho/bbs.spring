@@ -6,5 +6,5 @@ public interface MemberMapper {
 	
 	public MemberVO read(String userid);
 	
-	public void register(MemberVO vo);
+	public int register(MemberVO vo);
 }

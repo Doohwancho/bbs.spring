@@ -22,12 +22,10 @@ public class CommonController {
 	}
 	
 	@GetMapping("/customLogin")
-	public void loginInput(String error, String logout, @RequestParam(value="registerLoginSelector", required=false) String registerLoginSelector, Model model) {
-		log.info("error: " + error); 
+	public void loginInput(String error, String logout, Model model) {
+		log.info("error: " + error);
 		
 		log.info("logout: "+ logout);
-		
-		log.info("registerLoginSelector " + registerLoginSelector);
 		
 		if(error != null) {
 			model.addAttribute("error", "Login Error Check Your Account!");
@@ -37,14 +35,6 @@ public class CommonController {
 			model.addAttribute("logout", "Logout!!");
 		}
 		
-		if(registerLoginSelector == null) {
-			log.info("registerLoginSelector가 없습니다."); 
-		}
-		else if(registerLoginSelector.equals("registerActive")) {
-			model.addAttribute("registerLoginSelector", "registerActive"); 
-		} else if(registerLoginSelector.equals("loginActive")) {
-			model.addAttribute("registerLoginSelector", "loginActive");
-		}
 	}
 	
 	//로그아웃시 세션을 무효화 시키는 설정이나 특정한 쿠키를 지우는 작업을 지정할 수 있음

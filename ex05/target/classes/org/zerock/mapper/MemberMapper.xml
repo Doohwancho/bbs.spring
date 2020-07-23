@@ -28,4 +28,12 @@
 			mem.userid=#{userid}
 	</select>
 	
+	
+	<insert id="register" parameterType="org.zerock.domain.MemberVO"> 
+		<![CDATA[
+			insert into tbl_member(USERID,USERPW,USERNAME)
+			values (#{vo.userid}, #{vo.userpw}, #{vo.userName})
+		]]>
+	</insert>
+	
 </mapper>
