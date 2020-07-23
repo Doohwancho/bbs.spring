@@ -29,10 +29,17 @@
 	</select>
 	
 	
-	<insert id="register" parameterType="org.zerock.domain.MemberVO"> 
+	<insert id="registerUser" parameterType="org.zerock.domain.MemberVO"> 
 		<![CDATA[
 			insert into tbl_member(USERID,USERPW,USERNAME)
-			values (#{vo.userid}, #{vo.userpw}, #{vo.userName})
+			values (#{userid}, #{userpw}, #{userName})
+		]]>
+	</insert>
+	
+	<insert id="registerAuth" parameterType="org.zerock.domain.MemberVO"> 
+		<![CDATA[
+			insert into tbl_member_auth(USERID, AUTH)
+			values (#{userid}, 'ROLE_USER')
 		]]>
 	</insert>
 	

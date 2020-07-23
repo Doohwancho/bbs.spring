@@ -6,5 +6,7 @@ public interface MemberMapper {
 	
 	public MemberVO read(String userid);
 	
-	public int register(MemberVO vo);
+	public int registerUser(MemberVO vo);
+	
+	public int registerAuth(MemberVO vo);
 }

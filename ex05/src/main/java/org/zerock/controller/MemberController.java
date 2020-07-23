@@ -40,8 +40,19 @@ public class MemberController {
 	public String register(MemberVO vo) throws Exception{
 		log.info("/member/register..........................");
 		log.info("register member.................................: "+vo);
-//		memberService.register(vo);
 		
+		try {
+			String encodedPw = pwencoder.encode(vo.getUserpw());
+			vo.setUserpw(encodedPw);
+			memberService.register(vo);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/customLogin";
+		
+		
+		/*
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -101,8 +112,6 @@ public class MemberController {
 				}
 			}
 		}
-		
-		
-		return "redirect:/customLogin";
+		*/
 	}
 }
