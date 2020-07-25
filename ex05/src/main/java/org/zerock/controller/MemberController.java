@@ -40,7 +40,7 @@ public class MemberController {
 	public String register(MemberVO vo) throws Exception{
 		log.info("/member/register..........................");
 		log.info("register member.................................: "+vo);
-		
+		 
 		try {
 			String encodedPw = pwencoder.encode(vo.getUserpw());
 			vo.setUserpw(encodedPw);

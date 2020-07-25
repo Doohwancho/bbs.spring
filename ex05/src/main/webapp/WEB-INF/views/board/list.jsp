@@ -52,6 +52,13 @@
 				
 				<sec:authorize access="isAuthenticated()">
 					<li class="nav-item">
+						<a class="nav-link" href="#" onclick="document.getElementById('member-update-form').submit();">Member-Info</a>
+						<form id="member-update-form" action='<c:url value='/memberUpdate'/>' method="GET">
+						   <!-- <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>  -->
+						</form> 
+					</li> 
+					 
+					<li class="nav-item">
 						<a class="nav-link" href="#" onclick="document.getElementById('logout-form').submit();">Sign out</a>
 						<form id="logout-form" action='<c:url value='/customLogout'/>' method="POST">
 						   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
