@@ -33,7 +33,7 @@ public class MemberController {
 	
 	@GetMapping("/register")
 	public String register() {
-		return "customRegister"; 
+		return "member/customRegister"; 
 	}
 	
 	@PostMapping("/register")
