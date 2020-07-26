@@ -50,12 +50,12 @@
 <body>
    	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="list">'<c:out value="${member.userId}"/>'2</a>
+		<a class="navbar-brand" href="list"><c:out value="${member.userid}"/></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNav" aria-controls="navbarNav"
 			aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
-		</button>
+		</button> 
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
 				<li class="nav-item active"><a class="nav-link" href="list">Home
@@ -73,7 +73,7 @@
 							<a class="nav-link">Login</a>
 							<input type="hidden" name="registerLoginSelector" value="loginActive" />		
 						</form> 
-					</li>
+					</li> 
 				</sec:authorize>
 				
 				<sec:authorize access="isAuthenticated()">
@@ -104,54 +104,55 @@
 
 					<div class="form-group">
 						<label for="labelBno">아이디</label> <input type="text"
-							class="form-control" name="bno" placeholder="Bno"
-							value='<c:out value="${board.bno }"/>' readonly>
+							class="form-control" name="userid" placeholder="Bno"
+							value='<c:out value="${member.userid }"/>' readonly>
 					</div>
 
 					<div class="form-group form-group col-md-20">
 						<label for="labelTitle">비밀번호</label> <input type="text"
-							class="form-control" name="title" placeholder="write title"
-							value='<c:out value="${board.title }"/>' readonly>
+							class="form-control" name="userpw" placeholder="write new password"
+							value=''>
 					</div>
 
 
 					<!-- textarea에 엔터치거나 스페이스있으면 웹에서도 그렇게 뜸!! 주의!! -->
 					<div class="form-group">
+						<!-- 
 						<label for="labelTextArea">이름</label>
-						<textarea class="form-control" rows="5" name="content" placeholder="write content" readonly><c:out value="${board.content }" /></textarea>
+						<textarea class="form-control" rows="5" name="content" placeholder="write content" readonly><c:out value="${member.userName }" /></textarea>
+						 -->
+						 <label for="labelTitle">이름</label> <input type="text"
+							class="form-control" name="userName" placeholder="write new name"
+							value=''>
 					</div>
 
 					<div class="form-group">
-						<label for="labelWriter">Writer</label> <input type="text"
+						<label for="labelWriter">register date</label> <input type="text"
 							class="form-control" name="writer" placeholder="write writer"
-							value='<c:out value="${board.writer }"/>' readonly>
+							value='<c:out value="${member.regDate }"/>' readonly>
 					</div>
 					
 					<sec:authentication property="principal" var="pinfo"/>
 					
 					<sec:authorize access="isAuthenticated()">
-						<c:if test="${pinfo.username eq board.writer}">
-							<button type="button" data-oper='modify' id="modifyBtn" class="btn btn-warning">Modify</button>
-                        </c:if>
+						
+						<button type="button" data-oper='modify' id="modifyBtn" class="btn btn-warning">Modify</button>
                         
-                        <c:if test="${pinfo.username eq board.writer}">
-							<button type="button" data-oper='modify' id="modifyBtn" class="btn btn-danger">Delete</button>
-						</c:if>
+						<button type="button" data-oper='modify' id="modifyBtn" class="btn btn-danger">Delete</button>
+						
 					</sec:authorize>
 					
-					<button type="button" data-oper='list' id="listBtn"
-						class="btn btn-primary">List</button>
+					<button type="button" data-oper='list' id="listBtn" class="btn btn-primary">List</button>
+						
 							<!-- end of button -->
 				</form> <!-- end of a post -->
 
 			</div>
+			<!-- 
 			<form id='operForm' action="/board/modify" method="get">
 				<input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno }"/>'>
-				<input type='hidden' id='pageNum' name='pageNum' value='<c:out value="${cri.pageNum }"/>'>
-				<input type='hidden' id='amount' name='amount' value='<c:out value="${cri.amount }"/>'>
-				<input type='hidden' id='type' name='type' value='<c:out value="${cri.type }"/>'/>
-				<input type='hidden' id='keyword' name='keyword' value='<c:out value="${cri.keyword }"/>'/>
 			</form>
+			 -->
 			
 		</div> <!-- end of hidden info regarding post -->
 	</div> <!-- end of the entire div -->
@@ -167,7 +168,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			
-		}
+		});
 	</script>
 	 
 </body>
