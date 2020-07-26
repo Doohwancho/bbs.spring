@@ -58,28 +58,12 @@
 		</button> 
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
-				<li class="nav-item active"><a class="nav-link" href="list">Home
-						<span class="sr-only">(current)</span>
-				</a></li>
-				<sec:authorize access="isAnonymous()">
-					<li class="nav-item">
-						<form id='registerId' method='get' action="/customLogin">
-							<a class="nav-link">Register</a>
-							<input type="hidden" name="registerLoginSelector" value="registerActive" />		
-						</form>
-					</li>
-					<li class="nav-item">
-						<form id='loginId' method='get' action="/customLogin">
-							<a class="nav-link">Login</a>
-							<input type="hidden" name="registerLoginSelector" value="loginActive" />		
-						</form> 
-					</li> 
-				</sec:authorize>
+				<li class="nav-item active"><a class="nav-link" href="list">Home<span class="sr-only">(current)</span></a></li>
 				
 				<sec:authorize access="isAuthenticated()">
 					<li class="nav-item">
-						<a href="#" onclick="document.getElementById('logout-form').submit();">Sign out</a>
-						<form id="logout-form" action='<c:url value='/customLogout'/>' method="POST">
+						<a class="nav-link" href="#" onclick="document.getElementById('logout-form').submit();">Sign out</a>
+						<form id="logout-form" action='<c:url value='customLogout'/>' method="POST">
 						   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 						</form> 
 					</li> 
