@@ -1,5 +1,7 @@
 package org.zerock.controller;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
@@ -120,13 +122,17 @@ public class MemberController {
 	}
 	
 	@PostMapping("/memberUpdate")
-	public String memberUpdate(MemberVO vo, HttpSession session) throws Exception{
+	public String memberUpdate(MemberVO vo, Principal principal, HttpSession session) throws Exception{
 		
-		memberService.memberUpdate(vo);
+		MemberVO prev = memberService.read(principal.getName());
 		
-		session.invalidate();
+		prev.setUserpw(pwencoder.encode(vo.getUserpw()));
+		prev.setUserName(vo.getUserName());
 		
-		return "/"; 
+		memberService.memberUpdate(prev);
+		
+//		session.invalidate(); //회원정보가 바뀌어서 invalidate하는거 같은데 안하면 안돼?
+		return "redirect:/"; //redirect언제써?
 	}
 	
 }

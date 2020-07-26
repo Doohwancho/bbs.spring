@@ -16,9 +16,13 @@ public class MemberServiceImpl implements MemberService {
 	@Setter(onMethod_=@Autowired)
 	private MemberMapper memberMapper;
 	
+	public MemberVO read(String userid) {
+		return memberMapper.read(userid);
+	};
+	
 	@Transactional
 	@Override
-	public int register(MemberVO vo) throws Exception {
+	public int register(MemberVO vo) throws Exception { 
 		int resultRegisterUser = memberMapper.registerUser(vo);
 		int resultRegisterAuth = memberMapper.registerAuth(vo);
 		return resultRegisterUser+resultRegisterAuth-1;
@@ -27,6 +31,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public int memberUpdate(MemberVO vo) throws Exception{
+		/*
 		String newUserPw = vo.getUserpw();
 		String newUserName = vo.getUserName();
 		
@@ -36,5 +41,7 @@ public class MemberServiceImpl implements MemberService {
 		prev.setUserName(newUserName);
 		
 		return memberMapper.memberUpdate(prev);
+		*/
+		return memberMapper.memberUpdate(vo);
 	}
 }

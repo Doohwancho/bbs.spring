@@ -50,7 +50,7 @@
 <body>
    	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="list">Autochess</a>
+		<a class="navbar-brand" href="list">'<c:out value="${member.userId}"/>'2</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNav" aria-controls="navbarNav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -97,22 +97,19 @@
 	</nav> <!-- end of nav-bar -->
 
 	<div class="c1" style="padding-left: 1rem;">
-		<h1>Board Get</h1>
-		<br>
-
 		<div class="card w-75 border-secondary mb-3">
-			<h5 class="card-header">Get</h5>
+			<h5 class="card-header">회원정보</h5>
 			<div class="card-body">
 				<form role="form">
 
 					<div class="form-group">
-						<label for="labelBno">Bno</label> <input type="text"
+						<label for="labelBno">아이디</label> <input type="text"
 							class="form-control" name="bno" placeholder="Bno"
 							value='<c:out value="${board.bno }"/>' readonly>
 					</div>
 
 					<div class="form-group form-group col-md-20">
-						<label for="labelTitle">Title</label> <input type="text"
+						<label for="labelTitle">비밀번호</label> <input type="text"
 							class="form-control" name="title" placeholder="write title"
 							value='<c:out value="${board.title }"/>' readonly>
 					</div>
@@ -120,7 +117,7 @@
 
 					<!-- textarea에 엔터치거나 스페이스있으면 웹에서도 그렇게 뜸!! 주의!! -->
 					<div class="form-group">
-						<label for="labelTextArea">Text Area</label>
+						<label for="labelTextArea">이름</label>
 						<textarea class="form-control" rows="5" name="content" placeholder="write content" readonly><c:out value="${board.content }" /></textarea>
 					</div>
 
@@ -134,7 +131,11 @@
 					
 					<sec:authorize access="isAuthenticated()">
 						<c:if test="${pinfo.username eq board.writer}">
-							<button type="button" data-oper='modify' id="modifyBtn" class="btn btn-primary">Modify</button>
+							<button type="button" data-oper='modify' id="modifyBtn" class="btn btn-warning">Modify</button>
+                        </c:if>
+                        
+                        <c:if test="${pinfo.username eq board.writer}">
+							<button type="button" data-oper='modify' id="modifyBtn" class="btn btn-danger">Delete</button>
 						</c:if>
 					</sec:authorize>
 					
