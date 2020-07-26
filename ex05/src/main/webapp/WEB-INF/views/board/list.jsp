@@ -53,7 +53,7 @@
 				<sec:authorize access="isAuthenticated()">
 					<li class="nav-item">
 						<a class="nav-link" href="#" onclick="document.getElementById('member-update-form').submit();">Member-Info</a>
-						<form id="member-update-form" action='<c:url value='/memberUpdate'/>' method="GET">
+						<form id="member-update-form" action='<c:url value='member/memberUpdate'/>' method="GET">
 						   <!-- <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>  -->
 						</form> 
 					</li> 

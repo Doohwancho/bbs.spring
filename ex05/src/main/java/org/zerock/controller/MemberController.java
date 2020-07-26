@@ -1,8 +1,6 @@
 package org.zerock.controller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +31,7 @@ public class MemberController {
 	
 	@GetMapping("/register")
 	public String register() {
+		
 		return "member/customRegister"; 
 	}
 	
@@ -114,4 +113,20 @@ public class MemberController {
 		}
 		*/
 	}
+	
+	@GetMapping("/memberUpdate")
+	public String memberUpdate() {
+		return "member/memberInfo"; 
+	}
+	
+	@PostMapping("/memberUpdate")
+	public String memberUpdate(MemberVO vo, HttpSession session) throws Exception{
+		
+		memberService.memberUpdate(vo);
+		
+		session.invalidate();
+		
+		return "/"; 
+	}
+	
 }

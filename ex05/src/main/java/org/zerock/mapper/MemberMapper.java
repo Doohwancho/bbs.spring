@@ -9,4 +9,6 @@ public interface MemberMapper {
 	public int registerUser(MemberVO vo);
 	
 	public int registerAuth(MemberVO vo);
+	
+	public int memberUpdate(MemberVO vo);
 }

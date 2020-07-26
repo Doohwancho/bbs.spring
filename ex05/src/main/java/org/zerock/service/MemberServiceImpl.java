@@ -23,4 +23,18 @@ public class MemberServiceImpl implements MemberService {
 		int resultRegisterAuth = memberMapper.registerAuth(vo);
 		return resultRegisterUser+resultRegisterAuth-1;
 	}
+	
+	
+	@Override
+	public int memberUpdate(MemberVO vo) throws Exception{
+		String newUserPw = vo.getUserpw();
+		String newUserName = vo.getUserName();
+		
+		MemberVO prev = memberMapper.read(vo.getUserid());
+		
+		prev.setUserpw(newUserPw);
+		prev.setUserName(newUserName);
+		
+		return memberMapper.memberUpdate(prev);
+	}
 }

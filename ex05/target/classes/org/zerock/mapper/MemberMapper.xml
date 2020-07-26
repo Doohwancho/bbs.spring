@@ -43,4 +43,14 @@
 		]]>
 	</insert>
 	
+	<update id="memberUpdate" parameterType="org.zerock.domain.MemberVO"> 
+		<![CDATA[
+			update tbl_member
+			set
+			USERPW = #{userpw},
+			USERNAME = #{userName}
+			where USERID = #{userid}
+		]]>
+	</update>
+	
 </mapper>
