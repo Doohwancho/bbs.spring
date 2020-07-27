@@ -50,7 +50,7 @@
 <body>
    	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="list"><c:out value="${member.userid}"/></a>
+		<a class="navbar-brand" href="list">Autochess</a> 
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNav" aria-controls="navbarNav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -94,7 +94,7 @@
 
 					<div class="form-group form-group col-md-20">
 						<label for="labelTitle">비밀번호</label> <input type="text"
-							class="form-control" name="userpw" placeholder="write new password"
+							class="form-control" id="userpw" placeholder="write new password"
 							value=''>
 					</div>
 
@@ -106,7 +106,7 @@
 						<textarea class="form-control" rows="5" name="content" placeholder="write content" readonly><c:out value="${member.userName }" /></textarea>
 						 -->
 						 <label for="labelTitle">이름</label> <input type="text"
-							class="form-control" name="userName" placeholder="write new name"
+							class="form-control" id="userName" placeholder="write new name"
 							value=''>
 					</div>
 
@@ -122,12 +122,12 @@
 						
 						<button type="button" data-oper='modify' id="modifyBtn" class="btn btn-warning">Modify</button>
                         
-						<button type="button" data-oper='modify' id="modifyBtn" class="btn btn-danger">Delete</button>
+						<button type="button" data-oper='modify' id="withdrawBtn" class="btn btn-danger">Withdraw</button>
 						
 					</sec:authorize>
 					
 					<button type="button" data-oper='list' id="listBtn" class="btn btn-primary">List</button>
-						
+					<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 							<!-- end of button -->
 				</form> <!-- end of a post -->
 
@@ -148,10 +148,50 @@
 	
 	
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+	<script type="text/javascript" src="/resources/js/member.js"></script>
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
+			var csrfHeaderName="${_csrf.headerName}";
+			var csrfTokenValue="${_csrf.token}";
 			
+			//Ajax spring security header...
+			$(document).ajaxSend(function(e, xhr, options){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			}); 
+			
+			var modifyBtn = $("#modifyBtn");
+			
+			var userid = '<c:out value="${member.userid}"/>';
+			var userpw = null;
+			var userName = null;
+			
+			var vo = null;
+			
+			
+			modifyBtn.on("click", function(e){
+				
+				userpw= $('#userpw').val();
+				userName = $('#userName').val();
+				
+				//console.log("user password: "+userpw+" userName: "+userName);
+				
+				vo = {userid : userid, 
+					  userpw: userpw,
+					  userName: userName};
+				
+				if(!userpw || !userName){
+					alert("정보를 입력하지 않으셨습니다!");
+					return;
+				}
+				
+				//console.log("vo: "+vo);
+				//console.log(vo.userpw+"   "+vo.userName);
+				
+				memberService.update(vo, function(result){
+					alert(result);
+				});
+			});
 		});
 	</script>
 	 

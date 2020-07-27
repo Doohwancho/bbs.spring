@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.zerock.domain.MemberVO;
 import org.zerock.service.MemberService;
@@ -125,18 +126,89 @@ public class MemberController {
 		return "member/memberInfo"; 
 	}
 	
+	
+//	@RequestMapping(
+//			method = {RequestMethod.PUT, RequestMethod.PATCH },
+//			consumes = "application/json",
+//			produces = {MediaType.TEXT_PLAIN_VALUE}
+//			)
+	
+	/*	memberInfo.jsp에서 MemberController.java의 memberUpdate()에 POST방식으로 정보를 보낼 때, MemberVO vo객체안에 담아서 보내는 법
+	 * 
+	 *  modifyBtn.on("click", function(e){
+				
+				userpw= $('#userpw').val();
+				userName = $('#userName').val();
+				
+				console.log("user password: "+userpw+" userName: "+userName);
+				
+				vo = {userid : userid, 
+					  userpw: userpw,
+					  userName: userName};
+				
+				if(!userpw || !userName){
+					alert("정보를 입력하지 않으셨습니다!");
+					return;
+				}
+				
+				console.log("vo: "+vo);
+				console.log(vo.userpw+"   "+vo.userName);
+				
+				memberService.update(vo, function(result){
+					alert(result);
+				});
+			});
+			
+			
+			
+		member.js
+		
+		var memberService = (function(){
+	
+		function update(vo, callback, error){
+			
+			$.ajax({
+				type:'post', 
+				url:'/member/memberUpdate',
+				data : JSON.stringify(vo),
+				contentType : "application/json; charset=utf-8", 
+				success : function(result, status, xhr){
+					if(callback){
+						callback(result);
+					}
+				},
+				error : function(xhr, status, er){
+					if(error){
+						error(er);
+					}
+				}
+			})
+		}
+		
+		파라미터 받을때 @RequestBody MemberVo vo에서 파라미터로 받을 DTO인 MemberVO와  @RequestBody 꼭 필요! 
+		DTO는 json구조와 같아야 함!
+		그러면 스프링이 Jackson을 통해 Json값을 읽어서 DTO에 잘 넣어준다 ㅎㅎ
+	 * 
+	 */
 	@PostMapping("/memberUpdate")
-	public String memberUpdate(MemberVO vo, Principal principal, HttpSession session) throws Exception{
+	public String memberUpdate(@RequestBody MemberVO vo, Principal principal, HttpSession session) throws Exception{
 		
 		MemberVO prev = memberService.read(principal.getName());
 		
-		prev.setUserpw(pwencoder.encode(vo.getUserpw()));
+		log.info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+		log.info(vo);
+		
+		prev.setUserpw(pwencoder.encode(vo.getUserpw())); 
 		prev.setUserName(vo.getUserName());
+		
+		log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+		log.info(prev);
 		
 		memberService.memberUpdate(prev);
 		
-//		session.invalidate(); //회원정보가 바뀌어서 invalidate하는거 같은데 안하면 안돼?
-		return "redirect:/"; //redirect언제써?
+		session.invalidate(); //회원정보가 바뀌어서 invalidate하는거 같은데 안하면 안돼?
+		return "redirect:/"; //redirect언제써? //ERR_TOO_MANY_REDIRECTS
+//		return "/";
 	}
 	
 }
