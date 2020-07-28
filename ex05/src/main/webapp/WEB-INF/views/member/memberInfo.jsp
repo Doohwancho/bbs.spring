@@ -50,7 +50,7 @@
 <body>
    	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="list">Autochess</a> 
+		<a class="navbar-brand" href="/">Autochess</a> 
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNav" aria-controls="navbarNav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,7 @@
 		</button> 
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
-				<li class="nav-item active"><a class="nav-link" href="list">Home<span class="sr-only">(current)</span></a></li>
+				<li class="nav-item active"><a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a></li>
 				
 				<sec:authorize access="isAuthenticated()">
 					<li class="nav-item">
@@ -122,7 +122,7 @@
 						
 						<button type="button" data-oper='modify' id="modifyBtn" class="btn btn-warning">Modify</button>
                         
-						<button type="button" data-oper='modify' id="withdrawBtn" class="btn btn-danger">Withdraw</button>
+						<button type="button" data-oper='withdraw' id="withdrawBtn" class="btn btn-danger">Withdraw</button>
 						
 					</sec:authorize>
 					
@@ -189,9 +189,26 @@
 				//console.log(vo.userpw+"   "+vo.userName);
 				
 				memberService.update(vo, function(result){
-					alert(result);
+					//alert(result);
+					alert("success!");
+					
+					/*
+						location.href 와 location.replace()의 차이
+						
+						location.href는 url이동시 대부분 사용.
+						웹브라우저의 히스토리가 저장되고, 브라우저 뒤로가기시 location.href를 호출한 페이지로 이동함.
+						사용방법은 location.href = 'page.html';
+					
+						location.replace()는 히스토리가 저장안됨. 뒤로가기시 히스토리에 가장 이전페이지로 이동함.
+						뒤로가기로 location.replace()를 호출한 페이지로 갈 수 없음.
+						따라서 주로 결제한 직후 이걸 씀.\
+					*/
+					location.replace('/'); 
+					location.href= "/";
+					//window.opener.location.href = "";
 				});
 			});
+			
 		});
 	</script>
 	 

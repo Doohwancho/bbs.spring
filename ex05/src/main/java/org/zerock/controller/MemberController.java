@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.MemberVO;
 import org.zerock.service.MemberService;
 
@@ -191,7 +192,7 @@ public class MemberController {
 	 * 
 	 */
 	@PostMapping("/memberUpdate")
-	public String memberUpdate(@RequestBody MemberVO vo, Principal principal, HttpSession session) throws Exception{
+	public String memberUpdate(@RequestBody MemberVO vo, Principal principal, HttpSession session, RedirectAttributes rttr) throws Exception{
 		
 		MemberVO prev = memberService.read(principal.getName());
 		
@@ -206,8 +207,10 @@ public class MemberController {
 		
 		memberService.memberUpdate(prev);
 		
-		session.invalidate(); //회원정보가 바뀌어서 invalidate하는거 같은데 안하면 안돼?
-		return "redirect:/"; //redirect언제써? //ERR_TOO_MANY_REDIRECTS
+		log.info("after memberService.memberUpdate(prev).....");
+//		session.invalidate(); //회원정보가 바뀌어서 invalidate하는거 같은데 안하면 안돼?
+//		return "redirect:/"; //redirect언제써? //ERR_TOO_MANY_REDIRECTS
+		return "redirect:/board/list";
 //		return "/";
 	}
 	
