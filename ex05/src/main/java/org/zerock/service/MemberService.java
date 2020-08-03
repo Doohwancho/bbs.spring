@@ -9,4 +9,6 @@ public interface MemberService {
 	public int register(MemberVO vo) throws Exception;
 	
 	public int memberUpdate(MemberVO vo) throws Exception;
+	
+	public int memberDelete(MemberVO vo) throws Exception;
 }

@@ -11,4 +11,6 @@ public interface MemberMapper {
 	public int registerAuth(MemberVO vo);
 	
 	public int memberUpdate(MemberVO vo);
+	
+	public int memberDelete(MemberVO vo);
 }

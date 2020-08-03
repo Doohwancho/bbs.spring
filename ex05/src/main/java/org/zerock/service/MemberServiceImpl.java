@@ -44,4 +44,9 @@ public class MemberServiceImpl implements MemberService {
 		*/
 		return memberMapper.memberUpdate(vo);
 	}
+	
+	@Override
+	public int memberDelete(MemberVO vo) throws Exception{
+		return memberMapper.memberDelete(vo);
+	}
 }
