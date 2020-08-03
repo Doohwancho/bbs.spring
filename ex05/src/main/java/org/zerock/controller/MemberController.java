@@ -231,10 +231,11 @@ public class MemberController {
 		log.info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 		log.info("vo: "+vo);
 		
-		String prev_pw = prev.getUserpw();
-		String vo_pw = pwencoder.encode(vo.getUserpw());
+//		String prev_pw = prev.getUserpw();
+//		String vo_pw = pwencoder.encode(vo.getUserpw());
 		
-		if(!prev_pw.equals(vo_pw)) {
+//		if(!prev_pw.equals(vo_pw)) {
+		if(!pwencoder.matches(vo.getUserpw(), prev.getUserpw())) {
 			log.info("패스워드가 다릅니다요~");
 			rttr.addFlashAttribute("msg", false);
 			return "redirect:/member/memberDeleteView";
@@ -244,7 +245,7 @@ public class MemberController {
 		memberService.memberDelete(prev);
 		
 		log.info("after memberService.memberDelete(prev).....");
-//		session.invalidate(); //회원정보가 바뀌어서 invalidate하는거 같은데 안하면 안돼?
+		session.invalidate(); //회원정보가 바뀌어서 invalidate하는거 같은데 안하면 안돼?
 //		return "redirect:/"; //redirect언제써? //ERR_TOO_MANY_REDIRECTS
 		return "redirect:/board/list";
 //		return "/";

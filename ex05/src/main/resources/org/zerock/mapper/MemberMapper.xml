@@ -54,9 +54,11 @@
 	</update>
 	
 	<delete id="memberDelete" parameterType="org.zerock.domain.MemberVO">
-		delete from tbl_member;
-		where USERID = #{userid} and
-			  USERPW = #{userpw}
+		<![CDATA[
+			delete from tbl_member
+			where USERID = #{userid} and
+				  USERPW = #{userpw} 
+		]]>
 	</delete>
 	
 </mapper>
