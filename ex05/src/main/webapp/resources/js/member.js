@@ -23,17 +23,17 @@ var memberService = (function(){
 		})
 	}
 
-	function remove(rno, replyer, callback, error){
+	function remove(vo, callback, error){
 		
 		$.ajax({
-			type:'delete',
+			type:'post',
 			url: '/member/memberDelete', 
-			data : JSON.stringify({rno:rno, replyer:replyer}),
+			data : JSON.stringify(vo),
 			contentType: "application/json; charset=utf-8",
 			
-			success : function(deleteResult, status, xhr){
+			success : function(result, status, xhr){
 				if(callback){
-					callback(deleteResult);
+					callback(result);
 				}
 			},
 			error : function(xhr, status, er){

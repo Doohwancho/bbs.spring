@@ -12,7 +12,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<title>Hello, BattleGround!</title>
+<title>회원 탈퇴 페이지</title>
 
 <style>
 	.uploadResult{
@@ -50,7 +50,7 @@
 <body>
    	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="/">Autochess</a> 
+		<a class="navbar-brand" href="/">Battle Ground</a> 
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNav" aria-controls="navbarNav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +84,7 @@
 		<div class="card w-75 border-secondary mb-3">
 			<h5 class="card-header">회원정보</h5>
 			<div class="card-body">
-				<form role="form" action="/member/memberDeleteView" method="GET">
+				<form role="form">
 
 					<div class="form-group">
 						<label for="labelBno">아이디</label> <input type="text"
@@ -94,7 +94,7 @@
 
 					<div class="form-group form-group col-md-20">
 						<label for="labelTitle">비밀번호</label> <input type="text"
-							class="form-control" id="userpw" placeholder="write new password"
+							class="form-control" id="userpw" placeholder="write password"
 							value=''>
 					</div>
 
@@ -107,7 +107,7 @@
 						 -->
 						 <label for="labelTitle">이름</label> <input type="text"
 							class="form-control" id="userName" placeholder="write new name"
-							value=''>
+							value='<c:out value="${member.userName }"/>' readonly>
 					</div>
 
 					<div class="form-group">
@@ -119,11 +119,7 @@
 					<sec:authentication property="principal" var="pinfo"/>
 					
 					<sec:authorize access="isAuthenticated()">
-						
-						<button type="button" id="modifyBtn" class="btn btn-warning">Modify</button>
-                        
-						<button type="submit" id="withdrawBtn" class="btn btn-danger">Withdraw</button>
-						
+						<button type="button" id="withdrawBtn" class="btn btn-danger">회원탈퇴</button>		
 					</sec:authorize>
 					
 					<button type="button" id="listBtn" class="btn btn-primary">List</button>
@@ -132,11 +128,6 @@
 				</form> <!-- end of a post -->
 
 			</div>
-			<!-- 
-			<form id='operForm' action="/board/modify" method="get">
-				<input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno }"/>'>
-			</form>
-			 -->
 			
 		</div> <!-- end of hidden info regarding post -->
 	</div> <!-- end of the entire div -->
@@ -160,27 +151,27 @@
 				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 			}); 
 			
-			var modifyBtn = $("#modifyBtn");
+			var withdrawBtn = $("#withdrawBtn");
 			
 			var userid = '<c:out value="${member.userid}"/>';
 			var userpw = null;
-			var userName = null;
+			//var userName = null;
 			
 			var vo = null;
 			
 			
-			modifyBtn.on("click", function(e){
+			withdrawBtn.on("click", function(e){
 				
 				userpw= $('#userpw').val();
-				userName = $('#userName').val();
+				//userName = $('#userName').val();
 				
-				//console.log("user password: "+userpw+" userName: "+userName);
+				console.log("user password: "+userpw);
 				
 				vo = {userid : userid, 
 					  userpw: userpw,
-					  userName: userName};
+					  };
 				
-				if(!userpw || !userName){
+				if(!userpw){
 					alert("정보를 입력하지 않으셨습니다!");
 					return;
 				}
@@ -188,7 +179,7 @@
 				//console.log("vo: "+vo);
 				//console.log(vo.userpw+"   "+vo.userName);
 				
-				memberService.update(vo, function(result){
+				memberService.remove(vo, function(result){
 					//alert(result);
 					alert("success!");
 					
@@ -230,12 +221,6 @@
 			$("#listBtn").on("click", function(){
 				self.location="/"; 
 			}); 
-			
-			$("#withdrawBtn").on("click", function(){
-				document.getElementById('withdrawBtn').submit();
-				//self.location="/"; 
-			}); 
-			
 			
 		});
 	</script>

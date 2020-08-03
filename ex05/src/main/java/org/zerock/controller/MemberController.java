@@ -235,11 +235,12 @@ public class MemberController {
 		String vo_pw = pwencoder.encode(vo.getUserpw());
 		
 		if(!prev_pw.equals(vo_pw)) {
+			log.info("패스워드가 다릅니다요~");
 			rttr.addFlashAttribute("msg", false);
 			return "redirect:/member/memberDeleteView";
 		}
 		
-		
+		log.info("패스워드 일치.. 계정 삭제 진행");
 		memberService.memberDelete(prev);
 		
 		log.info("after memberService.memberDelete(prev).....");
