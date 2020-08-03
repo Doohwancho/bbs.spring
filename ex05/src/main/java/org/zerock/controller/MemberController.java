@@ -214,4 +214,38 @@ public class MemberController {
 //		return "/";
 	}
 	
+	@GetMapping("/member/memberDeleteView")
+	public String memberDeleteView(Model model, Principal principal) {
+		
+		model.addAttribute("member", memberService.read(principal.getName()));
+		
+		return "member/memberDeleteView"; 
+	}
+	
+	
+	@PostMapping("/memberDelete")
+	public String memberDelete(@RequestBody MemberVO vo, Principal principal, HttpSession session, RedirectAttributes rttr) throws Exception{
+		
+		MemberVO prev = memberService.read(principal.getName());
+		
+		log.info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+		log.info("vo: "+vo);
+		
+		String prev_pw = prev.getUserpw();
+		String vo_pw = pwencoder.encode(vo.getUserpw());
+		
+		if(!prev_pw.equals(vo_pw)) {
+			rttr.addFlashAttribute("msg", false);
+			return "redirect:/member/memberDeleteView";
+		}
+		
+		
+		memberService.memberDelete(prev);
+		
+		log.info("after memberService.memberDelete(prev).....");
+//		session.invalidate(); //회원정보가 바뀌어서 invalidate하는거 같은데 안하면 안돼?
+//		return "redirect:/"; //redirect언제써? //ERR_TOO_MANY_REDIRECTS
+		return "redirect:/board/list";
+//		return "/";
+	}
 }
