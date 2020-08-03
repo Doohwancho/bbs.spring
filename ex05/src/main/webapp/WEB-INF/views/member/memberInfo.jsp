@@ -120,13 +120,13 @@
 					
 					<sec:authorize access="isAuthenticated()">
 						
-						<button type="button" data-oper='modify' id="modifyBtn" class="btn btn-warning">Modify</button>
+						<button type="button" id="modifyBtn" class="btn btn-warning">Modify</button>
                         
-						<button type="button" data-oper='withdraw' id="withdrawBtn" class="btn btn-danger">Withdraw</button>
+						<button type="button" id="withdrawBtn" class="btn btn-danger">Withdraw</button>
 						
 					</sec:authorize>
 					
-					<button type="button" data-oper='list' id="listBtn" class="btn btn-primary">List</button>
+					<button type="button" id="listBtn" class="btn btn-primary">List</button>
 					<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 							<!-- end of button -->
 				</form> <!-- end of a post -->
@@ -208,6 +208,28 @@
 					//window.opener.location.href = "";
 				});
 			});
+			
+			
+			$("#searchForm button").on("click", function(e){
+				if(!searchForm.find("option:selected").val()){
+					alert("검색종류를 선택하세요.");
+					return false;
+				}
+				
+				if(!searchForm.find("input[name='keyword']").val()){
+					alert("키워드를 입력하세요");
+					return false;
+				}
+				
+				searchForm.find("input[name='pageNum']").val("1"); //무조건 1페이지로
+				e.preventDefault();
+				
+				searchForm.submit();
+			});
+			
+			$("#listBtn").on("click", function(){
+				self.location="/"; 
+			}); 
 			
 		});
 	</script>
