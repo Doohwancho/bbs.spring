@@ -43,7 +43,7 @@
 						</form>
 					</li>
 					<li class="nav-item">
-						<form id='loginId' method='get' action="customLogin">
+						<form id='loginId' method='get' action="/customLogin">
 							<a class="nav-link">Login</a>		
 						</form>
 					</li>
@@ -53,14 +53,14 @@
 				<sec:authorize access="isAuthenticated()">
 					<li class="nav-item">
 						<a class="nav-link" href="#" onclick="document.getElementById('member-update-form').submit();">Member-Info</a>
-						<form id="member-update-form" action='<c:url value='member/memberUpdate'/>' method="GET">
+						<form id="member-update-form" action='<c:url value='/member/memberUpdate'/>' method="GET">
 						   <!-- <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>  -->
 						</form> 
 					</li> 
 					 
 					<li class="nav-item">
 						<a class="nav-link" href="#" onclick="document.getElementById('logout-form').submit();">Sign out</a>
-						<form id="logout-form" action='<c:url value='customLogout'/>' method="POST">
+						<form id="logout-form" action='<c:url value='/customLogout'/>' method="POST">
 						   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 						</form> 
 					</li> 
@@ -274,11 +274,18 @@
 			
 			
 			$("#registerId").on("click", function(){
-				document.getElementById('registerId').submit(); 
+				history.replaceState({}, null, location.pathname);
+				document.getElementById('registerId').submit();
+				//self.location="/member/memberInfo"; 
 			}); 
+			
+			
 			$("#loginId").on("click", function(){
-				document.getElementById('loginId').submit(); 
-			}); 
+				history.replaceState({}, null, location.pathname);
+				document.getElementById('loginId').submit();
+				//self.location="/customLogin";  //절대경로 지정해 주는 방법. 단, get/post로 못넘김
+			});
+			
 			/*
 			$("#logoutId").on("click", function(e){
 				//e.stopImmediatePropagation(); 
@@ -291,6 +298,7 @@
 			});
 			*/
 			 
+			
 		}); 
 		
 	</script>
